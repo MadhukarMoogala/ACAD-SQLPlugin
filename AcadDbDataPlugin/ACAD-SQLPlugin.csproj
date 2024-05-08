@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PlatformTarget>x64</PlatformTarget>
+	<BaseOutputPath>bin\</BaseOutputPath>   
+     <!--This is to makesure, SQL Data CLient dll is generated for Windows x64-->
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>  
+    <Platforms>x64</Platforms>     
+  </PropertyGroup>
+    <PropertyGroup>
+        <!--Edit ArxSdk to local ObjectARX Path-->
+        <ArxSdk>D:\ArxSDKs\arx2025</ArxSdk>
+        <!--Edit AcadDir to AutoCAD 2025 Install path-->
+        <AcadDir>D:\ACAD\venn\AutoCAD 2025</AcadDir>
+        <ArxMgdPath>$(AcadDir)</ArxMgdPath>        
+        <AssemblySearchPaths>$(ArxSdk)\inc\;$(AssemblySearchPaths)</AssemblySearchPaths>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    </PropertyGroup>
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.WindowsDesktop.App" />
+    </ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />      
+	</ItemGroup>	
+  <ItemGroup>
+    <Reference Include="accoremgd">      
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Acdbmgd">      
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="acmgd">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

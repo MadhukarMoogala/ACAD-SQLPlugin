@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "AutoCAD 2025": {
+      "commandName": "Executable",
+      "executablePath": "$(AcadDir)\\acad.exe",
+      "commandLineArgs": "/product ACAD /language \"en-US\""
+    }
+  }
+}
