@@ -61,25 +61,25 @@ namespace AutoCAD.SQL.Plugin
                           city;
                     ";
 
-                    using (var cmd = new SqlCommand(queryString, connection))
-                    {
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            if (reader.HasRows)
-                            {
-                                while (reader.Read())
-                                {
-                                    string city = reader.GetString(0); // assuming city is the first column (index 0)
-                                    int customerCount = reader.GetInt32(1); // assuming number of customers is the second column (index 1)
-                                    ed.WriteMessage($"\nCity: {city}, Customer Count: {customerCount}");
-                                }
-                            }
-                            else
-                            {
-                                ed.WriteMessage("\nNo results found.");
-                            }
-                        }
-                    }
+using (var cmd = new SqlCommand(queryString, connection))
+{
+    using (var reader = cmd.ExecuteReader())
+    {
+        if (reader.HasRows)
+        {
+            while (reader.Read())
+            {
+                string city = reader.GetString(0); // assuming city is the first column (index 0)
+                int customerCount = reader.GetInt32(1); // assuming number of customers is the second column (index 1)
+                ed.WriteMessage($"\nCity: {city}, Customer Count: {customerCount}");
+            }
+        }
+        else
+        {
+            ed.WriteMessage("\nNo results found.");
+        }
+    }
+}
                 }
             }
             catch (System.Exception ex)
