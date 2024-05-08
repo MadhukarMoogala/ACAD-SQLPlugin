@@ -139,13 +139,12 @@ Edit `ACAD-SQLPlugin.csproj` file to fix <AcadDir> and <ArxSdk>
 
 - Run `ConnectDB` command
 
+![image](https://github.com/MadhukarMoogala/ACAD-SQLPlugin/assets/6602398/0dbbe6ec-274e-44db-8800-d831db0e8214)
 
-
-![](C:\Users\moogalm\AppData\Roaming\marktext\images\2024-05-08-18-49-46-image.png)
 
 ## LICENSE
 
-MIT
+[MIT](https://github.com/MadhukarMoogala/ACAD-SQLPlugin/blob/main/LICENSE.txt)
 
 #### Written By
 
