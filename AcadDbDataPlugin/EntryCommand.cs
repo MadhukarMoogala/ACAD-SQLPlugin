@@ -101,7 +101,7 @@ using (var cmd = new SqlCommand(queryString, connection))
             }   
             var ed = doc.Editor;
             // Consider storing connection string in a configuration file for security
-            string connectionString = "data source=LAPTOP-F00D91HG;initial catalog=BikesStores;trusted_connection=true";
+            string connectionString = "";
             var data = new DataAccessor(connectionString);
             try
             {
