@@ -8,9 +8,10 @@ namespace AutoCAD.SQL.Plugin
     /// <summary>
     /// An utility class to access SQL Server database
     /// </summary>
-    public class DatabaseManager
+    public class DatabaseManager : IDisposable
     {
         private readonly string? _connectionString;
+        private bool disposedValue;
 
         public DatabaseManager()
         {
@@ -97,6 +98,24 @@ namespace AutoCAD.SQL.Plugin
             {
                 ed.WriteMessage($"\nError executing query: {ex.Message}");
             }
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    //nothing to dispose, connection is disposed in using block
+                }
+                disposedValue = true;
+            }
+        }
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

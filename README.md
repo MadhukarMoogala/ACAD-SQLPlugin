@@ -6,19 +6,13 @@ With advent of Modern .NET platform, we have recieved some querys from customers
 
 This post aims to address the query and at same time guides on connect to SQL Server.
 
-
-
 ## Connecting to SQL Server from AutoCAD:
 
 AutoCAD plugins are typically developed using the .NET framework, which offers robust support for database connectivity through ADO.NET. 
 
 However with AutoCAD 2025 onwards which is built on .NET 8.0, for the modern platform, we'll utilize the `System.Data.SqlClient` namespace, which provides classes for interacting with SQL Server databases.
 
-
-
 Before diving into the code, it's crucial to ensure that the plugin targets the correct platform, especially when dealing with external dependencies like `System.Data.SqlClient`. AutoCAD plugins should target the Windows x64 platform to align with AutoCAD's runtime environment. To achieve this, we specify `<RuntimeIdentifier>win-x64</RuntimeIdentifier>` in the project file (csproj) to instruct the build system to generate a DLL compatible with the Windows x64 platform.
-
-
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
@@ -32,7 +26,6 @@ Before diving into the code, it's crucial to ensure that the plugin targets the 
   <!-- Other project settings and dependencies -->
 
 </Project>
-
 ```
 
 With the project configured to target Windows x64, we can proceed to write code to connect to SQL Server and execute queries from within AutoCAD.
@@ -88,25 +81,28 @@ using (var cmd = new SqlCommand(queryString, connection))
 - AutoCAD Client code
 
 ```csharp
- var doc = Application.DocumentManager.MdiActiveDocument;
- if(doc is null)
- {
-     return;
- }   
- var ed = doc.Editor;
- // Consider storing connection string in a configuration file for security
- string connectionString = "your connection string";
- var data = new DataAccessor(connectionString);
- try
- {
-     data.TestSqlServerConnection();
-     ed.WriteMessage("\nConnected to SQL Server database successfully!");
-     data.RunQueryAndWriteToEditor(ed);
- }
- catch (System.Exception ex)
- {
-     ed.WriteMessage($"\nConnecting to SQL Server database failed!\n{ex.Message}");
- }
+ public static void ConnectDb()
+{
+    var doc = Autodesk.AutoCAD.ApplicationServices.Core.Application.DocumentManager.MdiActiveDocument;
+    if(doc is null)
+    {
+        return;
+    }   
+    var ed = doc.Editor;
+    using (var data = new DatabaseManager())
+    {
+        try
+        {
+            data.TestSqlServerConnection();
+            ed.WriteMessage("\nConnected to SQL Server database successfully!");
+            data.RunQueryAndWriteToEditor(ed);
+        }
+        catch (System.Exception ex)
+        {
+            ed.WriteMessage($"\nConnecting to SQL Server database failed!\n{ex.Message}");
+        }
+    }
+}
 ```
 
 ### To Build
@@ -138,8 +134,6 @@ Edit `ACAD-SQLPlugin.csproj` file to fix <AcadDir> and <ArxSdk>
 - After netload the `bin\x64\Debug\net8.0-windows\win-x64\ACAD-SQLPlugin.dll`
 
 - Run `ConnectDB` command
-
-
 
 ![](C:\Users\moogalm\AppData\Roaming\marktext\images\2024-05-08-18-49-46-image.png)
 

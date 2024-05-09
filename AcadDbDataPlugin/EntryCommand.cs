@@ -20,20 +20,19 @@ namespace AutoCAD.SQL.Plugin
                 return;
             }   
             var ed = doc.Editor;
-            // Consider storing connection string in a configuration file for security
-            string connectionString = "";
-            var data = new DataAccessor(connectionString);
-            try
+            using (var data = new DatabaseManager())
             {
-                data.TestSqlServerConnection();
-                ed.WriteMessage("\nConnected to SQL Server database successfully!");
-                data.RunQueryAndWriteToEditor(ed);
+                try
+                {
+                    data.TestSqlServerConnection();
+                    ed.WriteMessage("\nConnected to SQL Server database successfully!");
+                    data.RunQueryAndWriteToEditor(ed);
+                }
+                catch (System.Exception ex)
+                {
+                    ed.WriteMessage($"\nConnecting to SQL Server database failed!\n{ex.Message}");
+                }
             }
-            catch (System.Exception ex)
-            {
-                ed.WriteMessage($"\nConnecting to SQL Server database failed!\n{ex.Message}");
-            }
-           
         }
     }
 }
