@@ -21,8 +21,8 @@ namespace AutoCAD.SQL.Plugin
             }   
             var ed = doc.Editor;
             // Consider storing connection string in a configuration file for security
-            //string connectionString = "data source=LAPTOP-F00D91HG;initial catalog=BikesStores;trusted_connection=true";
-            var data = new DatabaseManager();
+            string connectionString = "";
+            var data = new DataAccessor(connectionString);
             try
             {
                 data.TestSqlServerConnection();
